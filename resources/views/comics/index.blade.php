@@ -14,6 +14,7 @@
                             <p class="card-text">
                                 Descrizione: {{ $item->description }}<br>
                                 Tipo: {{ $item->type }}
+                                <a href="{{ route('comics.show', $item->id) }}" class="btn btn-primary">Mostra dettagli</a>
                             </p>
                         </div>
                     </div>

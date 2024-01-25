@@ -25,7 +25,10 @@ class ComicController extends Controller
      */
     public function create()
     {
-        //
+        $menuLinks = config('data.home.menuLinks');
+        $bluebarLinks = config('data.home.bluebarLinks');
+        $footerLinks = config('data.home.footerLinks');
+        return view("comics.create", compact("menuLinks", "bluebarLinks", "footerLinks"));
     }
 
     /**
@@ -33,7 +36,20 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $comic = new Comic();
+        $comic->title = $data["title"];
+        $comic->description = $data["description"];
+        $comic->thumb = $data["thumb"];
+        $comic->price = $data["price"];
+        $comic->series = $data["series"];
+        $comic->sale_date = $data["sale_date"];
+        $comic->type = $data["type"];
+        $comic->save();
+
+        // return view("pastas.show", compact("pasta"));
+        return redirect()->route('comics.show', $comic->id);
     }
 
     /**
