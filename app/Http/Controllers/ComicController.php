@@ -13,9 +13,11 @@ class ComicController extends Controller
     public function index()
     {
         $products = Comic::all();
-        $data = config("data", "data.home");
+        $menuLinks = config('data.home.menuLinks');
+        $bluebarLinks = config('data.home.bluebarLinks');
+        $footerLinks = config('data.home.footerLinks');
 
-        return view("comics.index", compact("products", "data"));
+        return view("comics.index", compact("products", "menuLinks", "bluebarLinks", "footerLinks"));
     }
 
     /**
@@ -37,9 +39,13 @@ class ComicController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Comic $comic)
     {
-        //
+        $menuLinks = config('data.home.menuLinks');
+        $bluebarLinks = config('data.home.bluebarLinks');
+        $footerLinks = config('data.home.footerLinks');
+
+        return view("comics.show", compact("comic", "menuLinks", "bluebarLinks", "footerLinks"));
     }
 
     /**
