@@ -1,25 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <h2>Fumetti</h2>
+<div id="main">
+
+    <div id="jumbo"></div>
+    <div id="cardBox" class="position-relative">
+        <div id="series" class="position-absolute bg-primary px-3 fs-5 top-0 translate-middle">CURRENT SERIES
         </div>
-        <div class="row">
-            @foreach ($products as $item)
-                <div class="col-3">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $item->title }}</h5>
-                            <p class="card-text">
-                                Descrizione: {{ $item->description }}<br>
-                                Tipo: {{ $item->type }}
-                                <a href="{{ route('comics.show', $item->id) }}" class="btn btn-primary">Mostra dettagli</a>
-                            </p>
-                        </div>
-                    </div>
+        <div id="cardBox" class="container">
+            <div class="row">
+            @foreach ($products as $fumetto)
+                <div class="col-2" id="card">
+                    <img class="thumb" src={{$fumetto['thumb']}} alt="">
+                    <p class="text-uppercase">{{ $fumetto['title'] }}</p>
+                    <a href="{{ route('comics.show', $fumetto->id) }}" class="btn btn-primary">Mostra dettagli</a>
                 </div>
-            @endforeach
+                @endforeach
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="btn btn-primary rounded-0 px-4"> LOAD MORE</div>
         </div>
     </div>
+</div>
 @endsection
