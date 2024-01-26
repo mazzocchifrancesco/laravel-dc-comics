@@ -17,4 +17,9 @@
         </div>
     </div>
     <a href="{{ route('comics.edit', $comic->id) }}" class="btn btn-warning">Modifica</a>
+    <form action="{{ route('comics.destroy', $comic->id) }}" method="POST" class="d-inline-block">
+        @csrf
+        @method('DELETE')
+        <input type="submit" value="Elimina" class="btn btn-danger">
+    </form>
 @endsection
