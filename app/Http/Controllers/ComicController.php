@@ -109,7 +109,8 @@ class ComicController extends Controller
     public function update(Request $request, Comic $comic)
     {
         $data = $request->all();
-        $comic->update($data);
+        $dati_validati = $this->validation($data);
+        $comic->update($dati_validati);
 
         return redirect()->route('comics.show', $comic->id);
     }
