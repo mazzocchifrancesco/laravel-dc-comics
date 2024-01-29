@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comic;
+use Illuminate\Support\Facades\Validator;
 
 class ComicController extends Controller
 {
@@ -36,16 +37,30 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate(
+            [
+                'title' => "required | max:50",
+                // 'description'=> "",
+                'thumb' => "required | max:200",
+                'price' => "required | max:10",
+                'series' => "required | max:50",
+                'sale_dte' => "required",
+                'type' => "required | max:20",
+            ]
+        );
         $data = $request->all();
 
         $comic = new Comic();
-        $comic->title = $data["title"];
-        $comic->description = $data["description"];
-        $comic->thumb = $data["thumb"];
-        $comic->price = $data["price"];
-        $comic->series = $data["series"];
-        $comic->sale_date = $data["sale_date"];
-        $comic->type = $data["type"];
+        // inserisce tutto in blocco 
+        $comic->fill($data);
+        // $comic->title = $data["title"];
+        // $comic->description = $data["description"];
+        // $comic->thumb = $data["thumb"];
+        // $comic->price = $data["price"];
+        // $comic->series = $data["series"];
+        // $comic->sale_date = $data["sale_date"];
+        // $comic->type = $data["type"];
         $comic->save();
 
         // return view("pastas.show", compact("pasta"));
