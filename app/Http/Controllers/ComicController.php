@@ -41,12 +41,15 @@ class ComicController extends Controller
         $request->validate(
             [
                 'title' => "required | max:50",
-                // 'description'=> "",
+                'description' => "required",
                 'thumb' => "required | max:200",
                 'price' => "required | max:10",
                 'series' => "required | max:50",
-                'sale_dte' => "required",
+                'sale_date' => "required",
                 'type' => "required | max:20",
+            ],
+            [
+                'title.required' => 'devi inserire un titolo'
             ]
         );
         $data = $request->all();
