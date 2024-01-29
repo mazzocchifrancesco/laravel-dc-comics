@@ -8,6 +8,27 @@ use Illuminate\Support\Facades\Validator;
 
 class ComicController extends Controller
 {
+    public function validation($data)
+    {
+        $validated = validator::make(
+
+            $data,
+            [
+                'title' => "required | max:50",
+                'description' => "required",
+                'thumb' => "required | max:200",
+                'price' => "required | max:10",
+                'series' => "required | max:50",
+                'sale_date' => "required",
+                'type' => "required | max:20",
+            ],
+            [
+                'title.required' => 'devi inserire un titolo'
+            ]
+
+        )->validate();
+        return $validated;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -38,25 +59,13 @@ class ComicController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate(
-            [
-                'title' => "required | max:50",
-                'description' => "required",
-                'thumb' => "required | max:200",
-                'price' => "required | max:10",
-                'series' => "required | max:50",
-                'sale_date' => "required",
-                'type' => "required | max:20",
-            ],
-            [
-                'title.required' => 'devi inserire un titolo'
-            ]
-        );
         $data = $request->all();
+        $dati_validati = $this->validation($data);
 
         $comic = new Comic();
+
         // inserisce tutto in blocco 
-        $comic->fill($data);
+        $comic->fill($dati_validati);
         // $comic->title = $data["title"];
         // $comic->description = $data["description"];
         // $comic->thumb = $data["thumb"];
